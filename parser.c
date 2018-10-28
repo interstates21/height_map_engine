@@ -31,6 +31,10 @@ static int		parse_line(t_collection *C,
 			C->points[n][i].x = i;
 			C->points[n][i].y = n;
 			C->points[n][i].z = CLAMP(ft_atoi(split[i]), -300, 300);
+			if (C->points[n][i].z < C->min_z)
+				C->min_z = C->points[n][i].z;
+			if (C->points[n][i].z > C->max_z)
+				C->max_z = C->points[n][i].z;
 			C->points[n][i].hex_col = 0;
 			if ((hex_needle = ft_strmultchr(split[i], 'x', 'X')))
 				C->points[n][i].hex_col = ft_atoi_base(hex_needle + 1, 16);

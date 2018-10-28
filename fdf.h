@@ -107,6 +107,8 @@ typedef struct	s_collection {
 	t_mlx				mlx;
 	t_vector3			**points;
 	t_vector2			map_len;
+	int					min_z;
+	int					max_z;
 	t_brasen			brasen;
 	t_transform			transform;
 }				t_collection;
@@ -116,9 +118,9 @@ int			set_rotation(int keycode, t_collection *C);
 int			set_movement(int keycode, t_collection *C);
 int			set_color(int keycode, t_collection *C);
 
-void		rot_x(t_vector3f *v, double ang);
-void		rot_y(t_vector3f *v, double ang);
-void		rot_z(t_vector3f *v, double ang);
+void		rot_x(t_vector3f *v, double ang, t_vector3f axis);
+void		rot_y(t_vector3f *v, double ang, t_vector3f axis);
+void		rot_z(t_vector3f *v, double ang, t_vector3f axis);
 
 void		line(t_collection *C, t_vector2 p1, t_vector2 p2, t_rgb rgb);
 t_vector3f	new_vec3f(double x, double y, double z);
@@ -127,7 +129,7 @@ t_vector2	new_vec3f_projection(t_vector3f a);
 void		render_this_frame(t_collection *C);
 t_rgb		new_rgb(int red, int green, int blue);
 t_vector2	new_vec2(int x, int y);
-t_vector2	v2_scale(t_vector2 v, double scaler);
+t_vector3f	v3f_scale(t_vector3f v, double scaler);
 int			print_error(int error_code);
 void		put_pixel_to_img(t_collection *C, t_vector2 p, t_rgb c);
 int			count_len_y(t_collection *C, int fd);

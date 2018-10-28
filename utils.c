@@ -10,12 +10,13 @@ t_rgb		ui_to_rgb(unsigned int i)
 	return (rgb);
 }
 
-t_vector2	v2_scale(t_vector2 v, double scaler)
+t_vector3f	v3f_scale(t_vector3f v, double scaler)
 {
-	t_vector2 result;
+	t_vector3f result;
 
 	result.x = v.x * scaler;
 	result.y = v.y * scaler;
+	result.z = v.z * scaler;
 
 	return (result);
 }

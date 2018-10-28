@@ -27,6 +27,8 @@ static int		set_defaults(t_collection *C)
 	C->map_len.y / 2 * C->transform.zoom, 0);
 	C->transform.depth = 0.035;
 	C->color_id = 0;
+	C->min_z = INFINITY;
+	C->max_z = 0;
 	C->color_fade = 30;
 	render_this_frame(C);
 	mlx_put_image_to_window(C->mlx.init, C->mlx.win, C->mlx.img, 0, 0);

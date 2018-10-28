@@ -23,18 +23,18 @@ static	t_rgb apply_color(int color_id, int altitude, int fade)
 	return (rgb);
 }
 
-static 	void	linear_transform(t_vector3f *p, t_transform transform, t_vector2 rot_axis)
+static 	void	linear_transform(t_vector3f *p, t_transform transform, t_vector3f axis)
 {
-	p->x -= rot_axis.x;
-	p->y -= rot_axis.y;
+	//p->x -= rot_axis.x;
+	//p->y -= rot_axis.y;
 	p->z *= transform.depth;
-	rot_y(p, transform.rot.y);
-	rot_z(p, transform.rot.z);
-	rot_x(p, transform.rot.x);
+	rot_y(p, transform.rot.y, axis);
+	rot_z(p, transform.rot.z, axis);
+	rot_x(p, transform.rot.x, axis);
 	p->x *= transform.zoom;
 	p->y *= transform.zoom;
-	p->x += rot_axis.x;
-	p->y += rot_axis.y;
+	//p->x += rot_axis.x;
+	//p->y += rot_axis.y;
 	p->x += transform.mov.x;
 	p->y += transform.mov.y;
 }
@@ -45,6 +45,7 @@ static	void	render_horizontal(t_collection *C, int j, int i)
 	t_vector3f p2;
 	t_vector2	proj_p1;
 	t_vector2	proj_p2;
+	t_vector3f	rotation_axis;
 	t_rgb		rgb;
 
 	p1 = new_vec3f(C->points[j][i].x, C->points[j][i].y, C->points[j][i].z);
@@ -53,8 +54,9 @@ static	void	render_horizontal(t_collection *C, int j, int i)
 		rgb = apply_color(C->color_id, (p2.z + p1.z) / 2, C->color_fade);
 	else
 		rgb = apply_hex(C->points[j][i], C->points[j][i + 1]);
-	linear_transform(&p1, C->transform, v2_scale(C->map_len, 0.5));
-	linear_transform(&p2, C->transform, v2_scale(C->map_len, 0.5));
+	rotation_axis = v3f_scale(new_vec3f(C->map_len.x, C->map_len.y, 0), 0.5);
+	linear_transform(&p1, C->transform, rotation_axis);
+	linear_transform(&p2, C->transform, rotation_axis);
 	proj_p1 = new_vec3f_projection(p1);
 	proj_p2 = new_vec3f_projection(p2);
 	line(C, proj_p1, proj_p2, rgb);
@@ -62,10 +64,11 @@ static	void	render_horizontal(t_collection *C, int j, int i)
 
 static	void	render_vertical(t_collection *C, int j, int i)
 {
-	t_vector3f p1;
-	t_vector3f p2;
+	t_vector3f 	p1;
+	t_vector3f 	p2;
 	t_vector2	proj_p1;
 	t_vector2	proj_p2;
+	t_vector3f	rotation_axis;
 	t_rgb		rgb;
 
 	p1 = new_vec3f(C->points[j][i].x, C->points[j][i].y, C->points[j][i].z);
@@ -74,8 +77,9 @@ static	void	render_vertical(t_collection *C, int j, int i)
 		rgb = apply_color(C->color_id, (p2.z + p1.z) / 2, C->color_fade);
 	else
 		rgb = apply_hex(C->points[j][i], C->points[j + 1][i]);
-	linear_transform(&p1, C->transform, v2_scale(C->map_len, 0.5));
-	linear_transform(&p2, C->transform, v2_scale(C->map_len, 0.5));
+	rotation_axis = v3f_scale(new_vec3f(C->map_len.x, C->map_len.y, 0), 0.5);
+	linear_transform(&p1, C->transform, rotation_axis);
+	linear_transform(&p2, C->transform, rotation_axis);
 	proj_p1 = new_vec3f_projection(p1);
 	proj_p2 = new_vec3f_projection(p2);
 	line(C, proj_p1, proj_p2, rgb);
