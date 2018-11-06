@@ -7,7 +7,7 @@ Simple rasterization engine for z maps.
 
 USAGE:
 ./application [maps/CHOOSE_ANY_MAP]
-Generate your maps with the 42MapGenerator script
+- Generate your maps with the 42MapGenerator script
 
 ![Alt text](screenshots/1.png)
 ![Alt text](screenshots/2.png)
