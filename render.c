@@ -15,26 +15,26 @@ static	t_rgb apply_color(int color_id, int altitude, int fade)
 	t_rgb	rgb;
 
 	if (color_id == 0)
-		rgb = new_rgb(altitude * fade / 5, altitude * fade / 5, altitude * fade / 5);
+		rgb = new_rgb(altitude * fade / 3, altitude * fade / 3, altitude * fade / 3);
 	if (color_id == 1)
-		rgb = new_rgb(altitude * fade / 4, 50, 50);
+		rgb = new_rgb(altitude * fade / 3, 50, 50);
 	if (color_id == 2)
-		rgb = new_rgb(20, 00, altitude * fade / 2);
+		rgb = new_rgb(40, 0, altitude * fade / 2);
 	return (rgb);
 }
 
 static 	void	linear_transform(t_vector3f *p, t_transform transform, t_vector3f axis)
 {
-	//p->x -= rot_axis.x;
-	//p->y -= rot_axis.y;
+	p->x -= axis.x;
+	p->y -= axis.y;
 	p->z *= transform.depth;
 	rot_y(p, transform.rot.y, axis);
 	rot_z(p, transform.rot.z, axis);
 	rot_x(p, transform.rot.x, axis);
 	p->x *= transform.zoom;
 	p->y *= transform.zoom;
-	//p->x += rot_axis.x;
-	//p->y += rot_axis.y;
+	p->x += axis.x;
+	p->y += axis.y;
 	p->x += transform.mov.x;
 	p->y += transform.mov.y;
 }
