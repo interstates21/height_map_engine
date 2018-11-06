@@ -4,6 +4,7 @@ Simple rasterization engine for z maps.
 - all transformations supported
 - own implementation of the Bresenham's line algoritmh
 - color maps supported (e.g pyramide.fdf)
+- simple color linear interpolation
 
 USAGE:
 ./application [maps/CHOOSE_ANY_MAP]
